@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package resources;
+package resources.userREST;
 
 import datamodel.Kurzus;
 import datamodel.KurzusJelentkezok;
@@ -26,9 +26,9 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.SecurityContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import services.api.KurzusService;
-import services.api.KurzusjelentkezokService;
-import services.api.UsersService;
+import services.def.KurzusService;
+import services.def.KurzusjelentkezokService;
+import services.def.UsersService;
 
 /**
  *

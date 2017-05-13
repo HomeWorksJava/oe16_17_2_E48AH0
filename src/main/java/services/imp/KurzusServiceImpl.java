@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package services.api;
+package services.imp;
 
 import datamodel.Kurzus;
 import datamodel.KurzusJelentkezok;
@@ -12,6 +12,7 @@ import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import services.GenericDaoServiceImpl;
+import services.def.KurzusService;
 
 @RequestScoped
 public class KurzusServiceImpl implements KurzusService {

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package services.api;
+package services.imp;
 
 import datamodel.Users;
 import datamodel.Users;
@@ -12,6 +12,7 @@ import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import services.GenericDaoServiceImpl;
+import services.def.UsersService;
 
 
 @RequestScoped

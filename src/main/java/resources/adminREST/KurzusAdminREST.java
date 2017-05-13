@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package resources;
+package resources.adminREST;
 
+import resources.userREST.KurzusREST;
 import datamodel.Kurzus;
 import datamodel.KurzusJelentkezok;
 import datamodel.Users;
@@ -31,9 +32,9 @@ import org.owasp.html.PolicyFactory;
 import org.owasp.html.Sanitizers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import services.api.KurzusService;
-import services.api.KurzusjelentkezokService;
-import services.api.UsersService;
+import services.def.KurzusService;
+import services.def.KurzusjelentkezokService;
+import services.def.UsersService;
 
 /**
  *

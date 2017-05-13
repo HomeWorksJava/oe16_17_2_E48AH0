@@ -14,10 +14,8 @@ and open the template in the editor.
                     <th>Állapot</th><th>Tervezett indulás</th><th>Létrehozva</th><th>Lejelentkezés</th></tr>
             <script>
                 httpGetAsync('../../rest/user/kurzus/entity/all',function(data) {
-                    if (data.length<1) {
-                        $("#kurzusok").append("<tr><td colspan=8>Nem jelentkeztél egy kurzusra se.</td></tr>");
-                    } else {
-                     for (var i = 0; i < data.length; ++i) {
+                     var volt = false;
+                    for (var i = 0; i < data.length; ++i) {
                        var row = data[i];
                        var letszam = row["kurzusJelentkezokCollection"].length;
                        var jelentkezes = "-";
@@ -30,6 +28,7 @@ and open the template in the editor.
                                 jelentkezes = "Kurzus már elkezdődött";
                                 }
                                talalat=true;
+                               volt = true;
                                break;
                            }
                        }
@@ -37,7 +36,9 @@ and open the template in the editor.
                         $("#kurzusok").append("<tr><td>"+row["nev"]+"</td><td>"+row["leiras"]+"</td><td>"+row["maxJelentkezok"]+"</td><td>"+letszam+"</td><td>"+kurzusAllapotok[row["allapot"]]+"</td><td>"+new Date(row["indulasDatum"]).toUTCString()+"</td><td>"+new Date(row["letrehozvaDatum"]).toUTCString()+"</td><td>"+jelentkezes+"</td></tr>");
                         }
                     }
-                 }
+                    if (!volt) {
+                        $("#kurzusok").append("<tr><td colspan=8>Nem jelentkeztél egy kurzusra se.</td></tr>");
+                    }
                 });
             </script>
             </table>

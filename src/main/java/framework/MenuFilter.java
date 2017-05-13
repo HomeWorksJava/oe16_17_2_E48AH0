@@ -25,7 +25,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import services.GenericDaoService;
-import services.api.UsersService;
+import services.def.UsersService;
 import webclasses.*;
 import webclasses.MenuLinkElement;
 @WebFilter(urlPatterns = "/pages/*")

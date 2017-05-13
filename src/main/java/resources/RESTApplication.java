@@ -31,10 +31,10 @@ public class RESTApplication extends Application{
      @Override
     public Set<Class<?>> getClasses() {
         Set<Class<?>> resources = new HashSet();
-        resources.add(resources.KurzusREST.class);
-        resources.add(resources.KurzusjelentkezokREST.class);
-        resources.add(resources.KurzusAdminREST.class);
-        resources.add(resources.UsersAdminREST.class);
+        resources.add(resources.userREST.KurzusREST.class);
+        resources.add(resources.userREST.KurzusjelentkezokREST.class);
+        resources.add(resources.adminREST.KurzusAdminREST.class);
+        resources.add(resources.adminREST.UsersAdminREST.class);
         resources.add(io.swagger.jaxrs.listing.ApiListingResource.class);
         resources.add(io.swagger.jaxrs.listing.SwaggerSerializers.class);
         resources.add(org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature.class);

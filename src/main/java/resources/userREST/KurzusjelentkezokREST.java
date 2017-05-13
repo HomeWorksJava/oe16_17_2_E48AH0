@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package resources;
+package resources.userREST;
 
 import datamodel.Kurzus;
 import datamodel.KurzusJelentkezok;
@@ -16,7 +16,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import services.api.KurzusjelentkezokService;
+import services.def.KurzusjelentkezokService;
 
 /**
  *
