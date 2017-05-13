@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<div class="container" style="padding-bottom:100px;">
+    <div class="row">
+        <div class='col-md-10 col-md-offset-1'>   
+            <h1 id='kurzusheader'>Kurzus létrehozása</h1>
+            <div id='formarea'>
+                <table class='table'>
+                    <tr><td><label for='nev'>Név: </label></td><td><input id='nev'></td></tr>
+            <tr><td><label for='leiras'>Leírás: </label></td><td><textarea id='leiras'></textarea></td></tr>
+            <tr><td><label for='maxJelentkezok'>Max. jelentkezők: </label></td><td><input id='maxJelentkezok'></td></tr>
+            <tr><td><label for='indulasDatom'>Tervezett indulás dátum: </label></td><td><input id='indulasDatum' type='date'></td></tr>
+            <tr><td><label for='allapot'>Állapot: </label></td><td><select id='allapot' class='form-control' style='width:150px;'>
+                <option value='0'>Nyitva</option>
+                <option value='1'>Folyamatban</option>
+                <option value='2'>Zárva</option>
+                    </select></td></tr>
+                </table>
+            <div id='buttonsholder'>
+                <button id='createbutton' class='btn btn-default' type='button' onclick='create()'>Létrehozás</button>
+                <div id='editbuttons'>
+                <button class='btn btn-default' type='button' onclick='modify()'>Módosítás</button>
+                <button class='btn btn-default' type='button' onclick='torles()'>Törlés</button>
+                <button class='btn btn-default' type='button' onclick='cancel()'>Mégse</button>
+                </div>
+            </div>
+            <table class='table' id='jelentkezok' style='display:none;'><br>
+                <tr><th>Név</th><th>Jelentkezés dátuma</th><th>Kirúgás</th></tr>
+                <tbody id='jelentkezok_body'>
+                    
+                </tbody>
+            </table>
+            </div>
+            
+            <h1>Kurzusok listája</h1>
+            <table class="table" id="kurzusok">
+                <tr><th>Név</th><th>Leírás</th>
+                    <th>Max létszám</th><th>Létszám</th>
+                    <th>Állapot</th><th>Tervezett indulás</th><th>Létrehozva</th><th>Kezelés</th></tr>
+                <tbody id='kurzusok_body'></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+  $( function() {
+    $("#indulasDatum").val(new Date().toISOString().split('T')[0]);
+    $("#editbuttons").hide();
+    KezelKurzusok();
+  } );
+  </script>
+
+

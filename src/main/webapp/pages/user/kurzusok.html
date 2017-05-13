@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<div class="container" style="padding-bottom:100px;">
+    <div class="row">
+        <div class='col-md-10 col-md-offset-1'>
+            <h1>Kurzusok listája</h1>
+            <table class="table" id="kurzusok">
+                <tr><th>Név</th><th>Leírás</th>
+                    <th>Max létszám</th><th>Létszám</th>
+                    <th>Állapot</th><th>Tervezett indulás</th><th>Létrehozva</th><th>Jelentkezés</th></tr>
+            <script>
+                httpGetAsync('../../rest/user/kurzus/entity/all',function(data) {
+                    for (var i = 0; i < data.length; ++i) {
+                       var row = data[i];
+                       var letszam = row["kurzusJelentkezokCollection"].length;
+                       var jelentkezes = "-";
+                       var talalat = false;
+                       for (var j=0;j<letszam&&!talalat;j++) {
+                           if (row["kurzusJelentkezokCollection"][j]["kurzusJelentkezokPK"]["userId"]==curr_user_id) {
+                               if (row["allapot"]==0) {
+                                    jelentkezes = "<button id='lejelentkez"+row["kurzusId"]+"' class='btn btn-default' type='default' onclick='lejelentkez("+row["kurzusId"]+")'>Lejelentkezés</button>";  
+                               } else {
+                                jelentkezes = "Már jelentkeztél";
+                                }
+                               talalat=true;
+                               break;
+                           }
+                       }
+                       if (!talalat && row["allapot"]==0) {
+                           jelentkezes = "<button id='jelentkez"+row["kurzusId"]+"' class='btn btn-default' type='default' onclick='jelentkez("+row["kurzusId"]+")'>Jelentkezés</button>";
+                       }
+                       $("#kurzusok").append("<tr><td>"+row["nev"]+"</td><td>"+row["leiras"]+"</td><td>"+row["maxJelentkezok"]+"</td><td>"+letszam+"</td><td>"+kurzusAllapotok[row["allapot"]]+"</td><td>"+new Date(row["indulasDatum"]).toISOString().split('T')[0]+"</td><td>"+new Date(row["letrehozvaDatum"]).toISOString().split('T')[0]+"</td><td>"+jelentkezes+"</td></tr>");
+                   }
+                });
+            </script>
+            </table>
+        </div>
+    </div>
+</div>
