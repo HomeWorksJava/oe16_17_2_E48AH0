@@ -125,7 +125,7 @@ public class MenuFilter implements Filter {
                 if (isadmin) {
                 menus.add(new MenuLinkElement("../admin/kurzusokkezelo.html","Kurzusok kezelése"));  
                 }
-                menus.add(new MenuLinkElement("../user/profil.html","Profil"));
+                menus.add(new MenuLinkElement("../user/profil.html","Kurzusaim"));
                 
             request.setAttribute("menus", menus);
             request.setAttribute("username", username);

@@ -35,6 +35,7 @@ public class RESTApplication extends Application{
         resources.add(resources.userREST.KurzusjelentkezokREST.class);
         resources.add(resources.adminREST.KurzusAdminREST.class);
         resources.add(resources.adminREST.UsersAdminREST.class);
+        resources.add(resources.adminREST.KurzusTartalmakAdminREST.class);
         resources.add(io.swagger.jaxrs.listing.ApiListingResource.class);
         resources.add(io.swagger.jaxrs.listing.SwaggerSerializers.class);
         resources.add(org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature.class);

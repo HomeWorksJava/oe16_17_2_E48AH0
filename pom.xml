@@ -84,6 +84,12 @@
         <groupId>org.owasp</groupId>
         <artifactId>antisamy</artifactId>
       <version>1.4</version>
+      <exclusions>
+        <exclusion>
+          <groupId>xerces</groupId>
+          <artifactId>xercesImpl</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
             <groupId>javax</groupId>

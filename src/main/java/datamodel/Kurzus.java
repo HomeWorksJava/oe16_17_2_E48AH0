@@ -49,6 +49,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Kurzus.findByAllapot", query = "SELECT k FROM Kurzus k WHERE k.allapot = :allapot")})
 public class Kurzus implements Serializable {
 
+   
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -93,6 +95,10 @@ public class Kurzus implements Serializable {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "kurzus",orphanRemoval = true)
     private Set<KurzusJelentkezok> kurzusJelentkezokCollection = new HashSet<>();
 
+    
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "kurzusId",orphanRemoval = true)
+    private Set<KurzusTartalmak> kurzusTartalmakCollection = new HashSet<>();
+     
     public Kurzus() {
     }
 
@@ -221,6 +227,15 @@ public class Kurzus implements Serializable {
      */
     public void setKurzusJelentkezokCollection(Set<KurzusJelentkezok> kurzusJelentkezokCollection) {
         this.kurzusJelentkezokCollection = kurzusJelentkezokCollection;
+    }
+
+    
+    public Set<KurzusTartalmak> getKurzusTartalmakCollection() {
+        return kurzusTartalmakCollection;
+    }
+
+    public void setKurzusTartalmakCollection(Set<KurzusTartalmak> kurzusTartalmakCollection) {
+        this.kurzusTartalmakCollection = kurzusTartalmakCollection;
     }
     
 }

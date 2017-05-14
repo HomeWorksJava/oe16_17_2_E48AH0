@@ -8,6 +8,7 @@ package resources.adminREST;
 import resources.userREST.KurzusREST;
 import datamodel.Kurzus;
 import datamodel.KurzusJelentkezok;
+import datamodel.KurzusTartalmak;
 import datamodel.Users;
 import io.swagger.annotations.Api;
 import static java.lang.Integer.parseInt;
@@ -33,6 +34,7 @@ import org.owasp.html.Sanitizers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import services.def.KurzusService;
+import services.def.KurzusTartalmakService;
 import services.def.KurzusjelentkezokService;
 import services.def.UsersService;
 
@@ -52,6 +54,9 @@ public class KurzusAdminREST {
     
     @Inject
     KurzusjelentkezokService kjservice;
+    
+    @Inject
+    KurzusTartalmakService tservice;
     
     @Inject
     UsersService uservice;
@@ -122,8 +127,12 @@ public class KurzusAdminREST {
                     Kurzus k = service.getById(kurzus_id);
                     if (k!=null) {
                         Set<KurzusJelentkezok> collection = k.getKurzusJelentkezokCollection();
+                        Set<KurzusTartalmak> ktcollection = k.getKurzusTartalmakCollection();
                         for (KurzusJelentkezok kj : collection) {
                             kjservice.delete(kurzus_id, kj.getKurzusJelentkezokPK().getUserId());
+                        }
+                        for (KurzusTartalmak kt : ktcollection) {
+                            tservice.delete(kt.getTartalomId());
                         }
                         service.delete(kurzus_id);
                         result = "Kurzus törlése sikeres!";
@@ -171,6 +180,9 @@ public class KurzusAdminREST {
                         result = "Hibás állapot!";
                     } else if(!(maxJelentkezok>=0 && maxJelentkezok<=5000)) {
                         result = "A max jelentkezők számának 0 és 5000 közt kell lennie.";
+                    }
+                    else if (nev.length()<1) {
+                        result = "A kurzus neve nem maradhat üresen!";
                     }
                     // Csak módosítás
                     else if (formParams.containsKey("kurzus_id")) {

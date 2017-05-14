@@ -41,6 +41,7 @@
         </script>
         <script type="text/javascript">
             selected_kurzus = -1;
+            selected_tartalom = -1;
             function showMessage(success,msg) {
                     $( ".dynamicboxes" ).hide( "medium", function() {});
                     if (success==1) {
@@ -134,6 +135,8 @@
 
                         $("#jelentkezok_body").html("");
                         $("#jelentkezok").hide();
+                        $("#kurzustartalom").hide();
+                        $("#kurzustartalommodify").hide();
                         selected_kurzus = -1;
             }
             function create() {
@@ -215,6 +218,84 @@
                    }
                 });
             }
+            function tartalomKivalaszt(id) {
+                $.ajax({
+                    type: 'GET',
+                    url: '../../rest/admin/kurzustartalom/entity/one',
+                    data: { 
+                        'tartalom_id': id
+                    },
+                    success: function(msg){
+                        selected_tartalom = id;
+                        result = JSON.parse(JSON.stringify(msg));
+                        $("#cim").val(result["cim"]);
+                        $("#tartalom").val(result["tartalom"]);
+                        $("#tcreatebutton").hide();
+                        $("#teditbuttons").show();
+                        $("#tartalomheader").html("Tartalom módosítása");
+                    }
+                });
+                
+            }
+            function modifyTartalom() {
+                $.ajax({
+                    type: 'POST',
+                    url: '../../rest/admin/kurzustartalom/entity/mentes',
+                    data: { 
+                        'tartalom_id': selected_tartalom,
+                        'cim': $("#cim").val(),
+                        'tartalom': $("#tartalom").val()
+                    },
+                    success: function(msg){
+                        result = JSON.parse(JSON.stringify(msg));
+                        showMessage(result["success"],result["result"]);
+                    }
+                });
+                
+            }
+            function torlesTartalom() {
+                $.ajax({
+                    type: 'POST',
+                    url: '../../rest/admin/kurzustartalom/entity/delete',
+                    data: { 
+                        'tartalom_id': selected_tartalom
+                    },
+                    success: function(msg){
+                        result = JSON.parse(JSON.stringify(msg));
+                        showMessage(result["success"],result["result"]);
+                        if (result["success"]==1) {
+                            kezeles(selected_kurzus);
+                        }
+                    }
+                });
+            }
+            function createTartalom() {
+                $.ajax({
+                    type: 'POST',
+                    url: '../../rest/admin/kurzustartalom/entity/mentes',
+                    data: { 
+                        'kurzus_id': selected_kurzus,
+                        'cim': $("#cim").val(),
+                        'tartalom': $("#tartalom").val()
+                    },
+                    success: function(msg){
+                        result = JSON.parse(JSON.stringify(msg));
+                        showMessage(result["success"],result["result"]);
+                        if (result["success"]==1) {
+                            kezeles(selected_kurzus);
+                        }
+                    }
+                });
+                
+            }
+            function cancelTartalom() {
+                selected_tartalom = -1;
+                $("#cim").val("");
+                $("#tartalom").val("");
+                $("#tartalomheader").html("Tartalom létrehozása");
+                $("#tcreatebutton").show();
+                $("#teditbuttons").hide();
+            }
             function kezeles(id) {
                 $.ajax({
                     type: 'GET',
@@ -224,7 +305,10 @@
                     },
                     success: function(msg){
                         selected_kurzus = id;
+                        cancelTartalom();
                         result = JSON.parse(JSON.stringify(msg));
+                        $("#jelentkezok").hide();
+                        $("#kurzustartalom").hide();
                         $("#nev").val(result["nev"]);
                         $("#leiras").val(result["leiras"]);
                         $("#maxJelentkezok").val(result["maxJelentkezok"]);
@@ -233,6 +317,7 @@
 
                         $("#createbutton").hide();
                         $("#editbuttons").show();
+                        $("#kurzustartalommodify").show();
                         $("#kurzusheader").html("Kurzus kezelése");
                         // Load users
                         var jelentkezok = result["kurzusJelentkezokCollection"];
@@ -245,7 +330,20 @@
                             }
                             $("#jelentkezok").show();
                         }
-                        
+                        //Load tartalom
+                        var tartalom = result["kurzusTartalmakCollection"];
+                        $("#kurzustartalmak_body").html("");
+                            if (tartalom!=undefined && tartalom.length>0) {
+                            for (var i=0;i<tartalom.length;i++) {
+                                var cim = tartalom[i]["cim"];
+                               // var tartalom = tartalom[i]["tartalom"];
+                                var letrehozva = new Date(tartalom[i]["letrehozva"]).toISOString().split('T')[0];
+                                var tartalomId = tartalom[i]["tartalomId"];
+                                var kezel = "<button class='btn btn-default' type='default' onclick='tartalomKivalaszt("+tartalomId+")'>Módosít</button>";
+                                $("#kurzustartalmak_body").append("<tr id='tartalom"+tartalomId+"'><td>"+cim+"</td><td>"+letrehozva+"</td><td>"+kezel+"</td></tr>");
+                            }
+                            $("#kurzustartalom").show();
+                        }
                     }
                 });
                 

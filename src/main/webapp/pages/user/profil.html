@@ -7,14 +7,41 @@ and open the template in the editor.
 <div class="container" style="padding-bottom:100px;">
     <div class="row">
         <div class='col-md-10 col-md-offset-1'>
+            <div id="tartalmak" style="display:none;">
+                <h1>Kurzus tartalma:</h1>
+                <table class="table" id="tartalmak_table">
+                    <tr><th width="20%">Cím</th><th width="60%">Tartalom</th><th width="20%">Létrehozva</th></tr>
+                    <tbody id="tartalmak_tbody"></tbody>
+                </table>
+            </div>
             <h1>A következő kurzusokra jelentkeztél eddig:</h1>
             <table class="table" id="kurzusok">
                 <tr><th>Név</th><th>Leírás</th>
-                    <th>Max létszám</th><th>Létszám</th>
-                    <th>Állapot</th><th>Tervezett indulás</th><th>Létrehozva</th><th>Lejelentkezés</th></tr>
+                    <th>Létszám</th>
+                    <th>Állapot</th><th>Tervezett indulás</th><th>Lejelentkezés</th><th>Kurzus megnyitása</th></tr>
             <script>
+                var save_data;
+                function megnyitas(id) {
+                    $("#tartalmak_tbody").html("");
+                    $("#tartalmak").show();
+                    for (var i = 0; i < save_data.length; ++i) {
+                        if(save_data[i]["kurzusId"]==id) {
+                            var row = save_data[i];
+                            var tartalmak = row["kurzusTartalmakCollection"];
+                            if (tartalmak!=undefined && tartalmak.length>0) {
+                                for (var j=0;j<tartalmak.length;j++) {
+                                    $("#tartalmak_tbody").append("<tr><td>"+tartalmak[j]["cim"]+"</td><td>"+tartalmak[j]["tartalom"]+"</td><td>"+new Date(tartalmak[j]["letrehozva"]).toISOString().split('T')[0]+"</td></tr>");
+                                }
+                            } else {
+                                $("#tartalmak_tbody").append("<tr><td colspan=3>Ennek a kurzusnak még nincs tartalma</td></tr>");
+                            }
+                            break;
+                        }
+                    }
+                }
                 httpGetAsync('../../rest/user/kurzus/entity/all',function(data) {
-                     var volt = false;
+                    save_data = data;
+                    var volt = false;
                     for (var i = 0; i < data.length; ++i) {
                        var row = data[i];
                        var letszam = row["kurzusJelentkezokCollection"].length;
@@ -22,22 +49,23 @@ and open the template in the editor.
                        var talalat = false;
                        for (var j=0;j<letszam&&!talalat;j++) {
                            if (row["kurzusJelentkezokCollection"][j]["kurzusJelentkezokPK"]["userId"]==curr_user_id) {
-                               if (row["allapot"]==0) {
-                                    jelentkezes = "<button id='lejelentkez"+row["kurzusId"]+"' class='btn btn-default' type='default' onclick='lejelentkez("+row["kurzusId"]+")'>Lejelentkezés</button>";  
-                               } else {
-                                jelentkezes = "Kurzus már elkezdődött";
-                                }
                                talalat=true;
                                volt = true;
                                break;
                            }
                        }
                        if (talalat) {
-                        $("#kurzusok").append("<tr><td>"+row["nev"]+"</td><td>"+row["leiras"]+"</td><td>"+row["maxJelentkezok"]+"</td><td>"+letszam+"</td><td>"+kurzusAllapotok[row["allapot"]]+"</td><td>"+new Date(row["indulasDatum"]).toUTCString()+"</td><td>"+new Date(row["letrehozvaDatum"]).toUTCString()+"</td><td>"+jelentkezes+"</td></tr>");
+                          if (row["allapot"]==0) {
+                              jelentkezes = "<button id='lejelentkez"+row["kurzusId"]+"' class='btn btn-default' type='default' onclick='lejelentkez("+row["kurzusId"]+")'>Lejelentkezés</button>";  
+                          } else {
+                              jelentkezes = "Kurzus már elkezdődött";
+                          }
+                          button_megnyitas = "<button class='btn btn-default' type='default' onclick='megnyitas("+row["kurzusId"]+")'>Megnyitás</button>";
+                        $("#kurzusok").append("<tr><td>"+row["nev"]+"</td><td>"+row["leiras"]+"</td><td>"+letszam+"</td><td>"+kurzusAllapotok[row["allapot"]]+"</td><td>"+new Date(row["indulasDatum"]).toISOString().split('T')[0]+"</td><td>"+jelentkezes+"</td><td>"+button_megnyitas+"</td></tr>");
                         }
                     }
                     if (!volt) {
-                        $("#kurzusok").append("<tr><td colspan=8>Nem jelentkeztél egy kurzusra se.</td></tr>");
+                        $("#kurzusok").append("<tr><td colspan=7>Nem jelentkeztél egy kurzusra se.</td></tr>");
                     }
                 });
             </script>

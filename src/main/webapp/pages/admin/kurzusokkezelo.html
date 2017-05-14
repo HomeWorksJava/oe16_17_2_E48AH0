@@ -23,14 +23,38 @@
                 <button class='btn btn-default' type='button' onclick='cancel()'>Mégse</button>
                 </div>
             </div>
-            <table class='table' id='jelentkezok' style='display:none;'><br>
+            <div id='jelentkezok' style='display:none;'>
+            <h2>Kurzus jelentkezők</h2>
+            <table class='table'><br>
                 <tr><th>Név</th><th>Jelentkezés dátuma</th><th>Kirúgás</th></tr>
                 <tbody id='jelentkezok_body'>
                     
                 </tbody>
             </table>
             </div>
-            
+            </div>
+            <div id='kurzustartalom' style="display:none;">
+                <h1>Kurzus tartalma</h1>
+            <table class="table" id="kurzustartalmak">
+                <tr><th>Cím</th><th>Létrehozva</th><th>Módosít</th></tr>
+                <tbody id="kurzustartalmak_body"></tbody>
+            </table>
+            </div>
+            <div id='kurzustartalommodify' style='display:none;'>
+            <h2 id='tartalomheader'>Tartalom létrehozása</h2>
+            <table class='table'>
+                <tr><td><label for='cim'>Cím: </label></td><td><input id='cim'></td></tr>
+                <tr><td><label for='tartalom'>Tartalom: </label></td><td><textarea id='tartalom'></textarea></td></tr>
+            </table>
+            <div id='tbuttonsholder'>
+                <button id='tcreatebutton' class='btn btn-default' type='button' onclick='createTartalom()'>Létrehozás</button>
+                <div id='teditbuttons'>
+                <button class='btn btn-default' type='button' onclick='modifyTartalom()'>Módosítás</button>
+                <button class='btn btn-default' type='button' onclick='torlesTartalom()'>Törlés</button>
+                <button class='btn btn-default' type='button' onclick='cancelTartalom()'>Mégse</button>
+                </div>
+            </div>
+            </div>
             <h1>Kurzusok listája</h1>
             <table class="table" id="kurzusok">
                 <tr><th>Név</th><th>Leírás</th>

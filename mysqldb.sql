@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: May 14, 2017 at 12:29 AM
+-- Generation Time: May 14, 2017 at 05:17 PM
 -- Server version: 5.7.18-0ubuntu0.16.04.1
 -- PHP Version: 7.0.15-0ubuntu0.16.04.4
 
@@ -28,8 +28,8 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `Kurzus` (
   `kurzus_id` int(10) UNSIGNED NOT NULL,
-  `nev` varchar(255) CHARACTER SET latin2 COLLATE latin2_hungarian_ci NOT NULL,
-  `leiras` varchar(8191) CHARACTER SET latin2 COLLATE latin2_hungarian_ci NOT NULL,
+  `nev` varchar(255) CHARACTER SET ucs2 COLLATE ucs2_hungarian_ci NOT NULL,
+  `leiras` varchar(8191) CHARACTER SET ucs2 COLLATE ucs2_hungarian_ci NOT NULL,
   `max_jelentkezok` int(10) UNSIGNED NOT NULL DEFAULT '0',
   `indulas_datum` date NOT NULL,
   `letrehozva_datum` date NOT NULL,
@@ -42,10 +42,10 @@ CREATE TABLE `Kurzus` (
 --
 
 INSERT INTO `Kurzus` (`kurzus_id`, `nev`, `leiras`, `max_jelentkezok`, `indulas_datum`, `letrehozva_datum`, `letrehozo_user_id`, `allapot`) VALUES
-(1, 'HTML5 Kurzu<b>&#39;&#34;;s</b>', 'Egy remek kis HTML5 kurzus mindenféle új technológiákkal', 5, '2017-05-13', '2017-05-12', 1, 0),
-(2, 'Java Kurzus', 'Ismerd meg a Java programozás alapjait!', 11, '2017-05-13', '2017-05-12', 1, 1),
-(3, 'C&#43;&#43; Kurzus', 'Egy 3 hetes C&#43;&#43; alapozó kurzus!', 6, '2017-05-13', '2017-05-13', 1, 0),
-(4, 'XSS Prevention', '<b><i>XSS megelozése</i></b>', 3, '2017-05-13', '2017-05-13', 1, 0);
+(1, 'HTML5 Kurzus', 'Tanuld meg a legújabb HTML5 webes technológiákat.', 5, '2017-05-14', '2017-05-12', 1, 0),
+(2, 'Java kurzus', 'Ismerd meg a Java programozás alapjait.', 11, '2017-05-14', '2017-05-12', 1, 1),
+(3, 'C&#43;&#43;', '3 hetes alapozó C&#43;&#43; kurzus.', 6, '2017-05-14', '2017-05-13', 1, 0),
+(4, 'XSS Prevention', 'Hogyan elözzük meg az <i><b>XSS támadásokat?</b></i>', 3, '2017-05-14', '2017-05-13', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -65,12 +65,37 @@ CREATE TABLE `KurzusJelentkezok` (
 
 INSERT INTO `KurzusJelentkezok` (`kurzus_id`, `user_id`, `jelentkezes_datum`) VALUES
 (1, 2, '2017-05-14'),
-(1, 4, '2017-05-14'),
+(3, 2, '2017-05-14'),
 (3, 3, '2017-05-14'),
 (3, 4, '2017-05-14'),
 (4, 2, '2017-05-14'),
 (4, 3, '2017-05-13'),
 (4, 5, '2017-05-14');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `KurzusTartalmak`
+--
+
+CREATE TABLE `KurzusTartalmak` (
+  `kurzus_id` int(10) UNSIGNED NOT NULL,
+  `tartalom_id` int(10) UNSIGNED NOT NULL,
+  `cim` varchar(255) CHARACTER SET ucs2 COLLATE ucs2_hungarian_ci NOT NULL,
+  `tartalom` varchar(8191) CHARACTER SET ucs2 COLLATE ucs2_hungarian_ci NOT NULL,
+  `letrehozva` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `KurzusTartalmak`
+--
+
+INSERT INTO `KurzusTartalmak` (`kurzus_id`, `tartalom_id`, `cim`, `tartalom`, `letrehozva`) VALUES
+(1, 1, '1. Bevezetés', 'A HTML5 bevezet jó néhány új elemet (címkét) és tulajdonságot, amelyek a modern weblapokon jellemz?en alkalmazott szerkezetekre kínálnak új megoldást. Néhány változtatás szemantikai jelleg?, például az általánosan használt &lt;div&gt; és a soron belüli részek formázását biztosító &lt;span&gt; helyett a &lt;nav&gt; (a weboldal navigációs területe) és a &lt;footer&gt; (lábléc). Más elemek új funkciók elérését biztosítják szabványosított felületen, mint az &lt;audio&gt; és a &lt;video&gt; elemek.', '2017-05-01'),
+(1, 5, '2. Gyakorlat', 'Hozzon létre egy...', '2017-05-14'),
+(2, 6, '1. Bevezetés', 'Ne használj Javát.', '2017-05-14'),
+(4, 7, '1. Bevezetés', 'Cross-Site Scripting (XSS) attacks are a type of injection, in which malicious scripts are injected into otherwise benign and trusted web sites. XSS attacks occur when an attacker uses a web application to send malicious code, generally in the form of a browser side script, to a different end user. Flaws that allow these attacks to succeed are quite widespread and occur anywhere a web application uses input from a user within the output it generates without validating or encoding it.<br /><br />\n\nAn attacker can use XSS? to send a malicious script to an unsuspecting user. The end user’s browser has no way to know that the script should not be trusted, and will execute the script. Because it thinks the script came from a trusted source, the malicious script can access any cookies, session tokens, or other sensitive information retained by the browser and used with that site. These scripts can even rewrite the content of the HTML page. For more details on the different types of XSS flaws, see: Types of Cross-Site Scripting. ', '2017-05-14'),
+(3, 10, '1. Bevezetes', 'C&#43;&#43; &gt; C#', '2017-05-14');
 
 -- --------------------------------------------------------
 
@@ -137,6 +162,13 @@ ALTER TABLE `KurzusJelentkezok`
   ADD KEY `user_id` (`user_id`);
 
 --
+-- Indexes for table `KurzusTartalmak`
+--
+ALTER TABLE `KurzusTartalmak`
+  ADD PRIMARY KEY (`tartalom_id`),
+  ADD KEY `kurzus_id` (`kurzus_id`);
+
+--
 -- Indexes for table `UserRoles`
 --
 ALTER TABLE `UserRoles`
@@ -156,7 +188,12 @@ ALTER TABLE `Users`
 -- AUTO_INCREMENT for table `Kurzus`
 --
 ALTER TABLE `Kurzus`
-  MODIFY `kurzus_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `kurzus_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+--
+-- AUTO_INCREMENT for table `KurzusTartalmak`
+--
+ALTER TABLE `KurzusTartalmak`
+  MODIFY `tartalom_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `Users`
 --
@@ -174,6 +211,13 @@ ALTER TABLE `KurzusJelentkezok`
   ADD CONSTRAINT `FKlbn8tqtmr9i1rxhw5dldxx9p3` FOREIGN KEY (`user_id`) REFERENCES `Users` (`user_id`),
   ADD CONSTRAINT `Kurzus_FK` FOREIGN KEY (`kurzus_id`) REFERENCES `Kurzus` (`kurzus_id`),
   ADD CONSTRAINT `User_FK` FOREIGN KEY (`user_id`) REFERENCES `Users` (`user_id`);
+
+--
+-- Constraints for table `KurzusTartalmak`
+--
+ALTER TABLE `KurzusTartalmak`
+  ADD CONSTRAINT `FKbwsr0my5w66p8bj31qtujst30` FOREIGN KEY (`kurzus_id`) REFERENCES `Kurzus` (`kurzus_id`),
+  ADD CONSTRAINT `KurzusTart_FK` FOREIGN KEY (`kurzus_id`) REFERENCES `Kurzus` (`kurzus_id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
