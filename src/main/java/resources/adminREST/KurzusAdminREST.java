@@ -47,7 +47,7 @@ import services.def.UsersService;
 public class KurzusAdminREST {
    @Context
    protected SecurityContext sc;
-   private static final Logger log = LoggerFactory.getLogger(KurzusREST.class.getSimpleName());
+   private static final Logger log = LoggerFactory.getLogger(KurzusAdminREST.class.getSimpleName());
 
     @Inject
     KurzusService service;
@@ -74,7 +74,7 @@ public class KurzusAdminREST {
             return kurzus;
         }
         catch (Exception x) {
-            log.debug("MIVAN"+x.getMessage());
+            log.debug("Hiba!"+x.getMessage());
         }
         return null;
     }
@@ -104,6 +104,7 @@ public class KurzusAdminREST {
                 }
         }
         catch (Exception x) {
+            log.debug(x.getMessage());
             result = "Hiba!";
         }
         HashMap<String, String> send = new HashMap<String, String>();
@@ -143,6 +144,7 @@ public class KurzusAdminREST {
                 }
         }
         catch (Exception x) {
+            log.debug(x.getMessage());
             result = "Hiba!";
         }
         HashMap<String, String> send = new HashMap<String, String>();
@@ -218,6 +220,7 @@ public class KurzusAdminREST {
                 }
         }
         catch (Exception x) {
+            log.debug(x.getMessage());
             result = "Hiba! Adjon meg minden mezőt!";
         }
         HashMap<String, String> send = new HashMap<String, String>();

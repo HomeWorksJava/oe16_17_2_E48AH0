@@ -123,7 +123,8 @@ public class MenuFilter implements Filter {
                 menus.add(new MenuLinkElement("../user/index.html","Kezdőlap"));
                 menus.add(new MenuLinkElement("../user/kurzusok.html","Kurzusok"));
                 if (isadmin) {
-                menus.add(new MenuLinkElement("../admin/kurzusokkezelo.html","Kurzusok kezelése"));  
+                menus.add(new MenuLinkElement("../admin/kurzusokkezelo.html","<span style='color:red;'>(A)</span> Kurzusok kezelése"));  
+                menus.add(new MenuLinkElement("../admin/users.html","<span style='color:red;'>(A)</span> Felhasználók"));                 
                 }
                 menus.add(new MenuLinkElement("../user/profil.html","Kurzusaim"));
                 

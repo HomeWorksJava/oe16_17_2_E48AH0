@@ -155,7 +155,7 @@
                     </security>
                 </datasource>
                 <datasource jndi-name="java:jboss/datasources/MySqlDS" pool-name="MySqlDS" enabled="true" use-ccm="true">
-                    <connection-url>jdbc:mysql://localhost:3306/mysqldb</connection-url>
+                    <connection-url>jdbc:mysql://localhost:3306/mysqldb?useUnicode=true&amp;connectionCollation=utf8_general_ci&amp;characterSetResults=utf8&amp;characterEncoding=utf8</connection-url>
                     <driver-class>com.mysql.jdbc.Driver</driver-class>
                     <driver>mysql</driver>
                     <security>
@@ -346,6 +346,7 @@
                             <module-option name="dsJndiName" value="java:/jboss/datasources/MySqlDS"/>
                             <module-option name="principalsQuery" value="select passwd from Users where username=?"/>
                             <module-option name="rolesQuery" value="select role, 'Roles' from UserRoles where user_id=(select user_id FROM Users where username=?)"/>
+                            <module-option name="hashCharset" value="UTF-8"/>
                             <module-option name="hashAlgorithm" value="SHA-256"/>
                             <module-option name="hashEncoding" value="base64"/>
                         </login-module>
@@ -446,5 +447,4 @@
             <remote-destination host="localhost" port="25"/>
         </outbound-socket-binding>
     </socket-binding-group>
-
 </server>

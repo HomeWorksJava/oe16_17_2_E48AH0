@@ -13,6 +13,40 @@ and open the template in the editor.
                     <th>Max létszám</th><th>Létszám</th>
                     <th>Állapot</th><th>Tervezett indulás</th><th>Létrehozva</th><th>Jelentkezés</th></tr>
             <script>
+                function lejelentkez(id) {
+                  $.ajax({
+                        type: 'POST',
+                        url: '../../rest/user/kurzus/entity/lejelentkez',
+                        data: {  
+                            'kurzus_id': id
+                        },
+                        success: function(msg){
+                            result = JSON.parse(JSON.stringify(msg));
+                            showMessage(result["success"],result["result"]);
+                            if (result["success"]==1) {
+                                $("#lejelentkez"+id).html("Lejelentkezve");
+                                $("#lejelentkez"+id).attr("disabled", true);
+                            }
+                        }
+                    });
+                }
+                function jelentkez(id) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '../../rest/user/kurzus/entity/jelentkez',
+                        data: {  
+                            'kurzus_id': id
+                        },
+                        success: function(msg){
+                            result = JSON.parse(JSON.stringify(msg));
+                            showMessage(result["success"],result["result"]);
+                            if (result["success"]==1) {
+                                $("#jelentkez"+id).html("Jelentkezve");
+                                $("#jelentkez"+id).attr("disabled", true);
+                            }
+                        }
+                    });
+                }
                 httpGetAsync('../../rest/user/kurzus/entity/all',function(data) {
                     for (var i = 0; i < data.length; ++i) {
                        var row = data[i];

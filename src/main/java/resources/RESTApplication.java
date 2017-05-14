@@ -32,6 +32,7 @@ public class RESTApplication extends Application{
     public Set<Class<?>> getClasses() {
         Set<Class<?>> resources = new HashSet();
         resources.add(resources.userREST.KurzusREST.class);
+        resources.add(resources.publicREST.UsersREST.class);
         resources.add(resources.userREST.KurzusjelentkezokREST.class);
         resources.add(resources.adminREST.KurzusAdminREST.class);
         resources.add(resources.adminREST.UsersAdminREST.class);

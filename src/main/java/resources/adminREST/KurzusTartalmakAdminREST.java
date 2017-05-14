@@ -44,7 +44,7 @@ import services.def.UsersService;
 public class KurzusTartalmakAdminREST {
    @Context
    protected SecurityContext sc;
-   private static final Logger log = LoggerFactory.getLogger(KurzusREST.class.getSimpleName());
+   private static final Logger log = LoggerFactory.getLogger(KurzusTartalmakAdminREST.class.getSimpleName());
 
     @Inject
     KurzusService service;
@@ -122,6 +122,7 @@ public class KurzusTartalmakAdminREST {
                 }
         }
         catch (Exception x) {
+            log.debug(x.getMessage());
             result = "Hiba!";
         }
         HashMap<String, String> send = new HashMap<String, String>();
@@ -148,6 +149,7 @@ public class KurzusTartalmakAdminREST {
                 }
         }
         catch (Exception x) {
+            log.debug(x.getMessage());
             result = "Hiba!";
         }
         HashMap<String, String> send = new HashMap<String, String>();

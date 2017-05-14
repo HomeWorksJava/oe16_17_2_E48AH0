@@ -20,6 +20,23 @@ and open the template in the editor.
                     <th>Létszám</th>
                     <th>Állapot</th><th>Tervezett indulás</th><th>Lejelentkezés</th><th>Kurzus megnyitása</th></tr>
             <script>
+                function lejelentkez(id) {
+                  $.ajax({
+                        type: 'POST',
+                        url: '../../rest/user/kurzus/entity/lejelentkez',
+                        data: {  
+                            'kurzus_id': id
+                        },
+                        success: function(msg){
+                            result = JSON.parse(JSON.stringify(msg));
+                            showMessage(result["success"],result["result"]);
+                            if (result["success"]==1) {
+                                $("#lejelentkez"+id).html("Lejelentkezve");
+                                $("#lejelentkez"+id).attr("disabled", true);
+                            }
+                        }
+                    });
+                }
                 var save_data;
                 function megnyitas(id) {
                     $("#tartalmak_tbody").html("");

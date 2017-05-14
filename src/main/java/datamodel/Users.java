@@ -5,6 +5,7 @@
  */
 package datamodel;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
@@ -56,9 +57,9 @@ public class Users implements Serializable {
     private String passwd;
     /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "users")
     private Collection<KurzusJelentkezok> kurzusJelentkezokCollection;*/
-    
+    /*@JsonIgnore
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "users",orphanRemoval = true)
-    private Set<KurzusJelentkezok> kurzusJelentkezokCollection = new HashSet<>();
+    private Set<KurzusJelentkezok> kurzusJelentkezokCollection = new HashSet<>();*/
 
     public Users() {
     }
@@ -70,6 +71,11 @@ public class Users implements Serializable {
     public Users(Integer userId, String username) {
         this.userId = userId;
         this.username = username;
+    }
+    
+    public Users(String username, String password) {
+        this.username = username;
+        this.passwd = password;
     }
 
     public Integer getUserId() {
@@ -124,15 +130,16 @@ public class Users implements Serializable {
     /**
      * @return the kurzusJelentkezokCollection
      */
-    public Set<KurzusJelentkezok> getKurzusJelentkezokCollection() {
+    /*public Set<KurzusJelentkezok> getKurzusJelentkezokCollection() {
         return kurzusJelentkezokCollection;
     }
 
     /**
      * @param kurzusJelentkezokCollection the kurzusJelentkezokCollection to set
      */
+    /*
     public void setKurzusJelentkezokCollection(Set<KurzusJelentkezok> kurzusJelentkezokCollection) {
         this.kurzusJelentkezokCollection = kurzusJelentkezokCollection;
-    }
+    }*/
     
 }

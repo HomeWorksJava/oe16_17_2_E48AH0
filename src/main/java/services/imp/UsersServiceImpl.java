@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import services.GenericDaoServiceImpl;
 import services.def.UsersService;
 

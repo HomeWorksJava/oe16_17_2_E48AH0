@@ -100,6 +100,7 @@ public class KurzusREST {
             }
         }
         catch (Exception x) {
+            log.debug(x.getMessage());
             result = "Hiba!";
         }
         HashMap<String, String> send = new HashMap<String, String>();
@@ -143,6 +144,7 @@ public class KurzusREST {
             }
         }
         catch (Exception x) {
+            log.debug(x.getMessage());
             result = "Hiba!";
         }
         HashMap<String, String> send = new HashMap<String, String>();

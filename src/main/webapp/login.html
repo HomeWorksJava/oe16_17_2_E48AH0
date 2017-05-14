@@ -8,7 +8,24 @@ and open the template in the editor.
     <head>
         <title>Login</title>
         <meta charset="UTF-8">
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="text/javascript">
+            function jelentkez() {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Kurzuskezelo-1.0/rest/public/users/entity/register',
+                    data: {  
+                        'j_username': $("#j_username").val(),
+                        'j_password': $("#j_password").val()
+                    },
+                    success: function(msg){
+                        result = JSON.parse(JSON.stringify(msg));
+                        alert(result["result"]);
+                    }
+                });
+            }
+        </script>
     </head>
     <body>
             <div>
@@ -16,9 +33,9 @@ and open the template in the editor.
                     <form method="POST" action="j_security_check">
                         <table>
                         <tr><td style='text-align:center;' colspan='2'><h2>Bejelentkezés</h2></td></tr>
-                        <tr><td><label for="j_username">User:</label></td><td><input type="text" name="j_username"></td></tr>
-                        <tr><td><label for="j_password">Password:</label></td><td><input type="password" name="j_password"></td></tr>
-                        <tr><td style='text-align:center;' colspan='2'><input type="submit" value="Login"></td></tr>
+                        <tr><td><label for="j_username">User:</label></td><td><input type="text" id="j_username" name="j_username"></td></tr>
+                        <tr><td><label for="j_password">Password:</label></td><td><input type="password" id="j_password" name="j_password"></td></tr>
+                        <tr><td style='text-align:center;' colspan='2'><input type="submit" value="Bejelentkezés"> <input type="button" onclick="jelentkez()" value="Regisztráció"></td></tr>
                         </table><br>
                         <i>Teszt Fh/Jelszó párosok README.md-ben.</i>
                     </form>

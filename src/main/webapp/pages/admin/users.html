@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<script type="text/javascript">
+    
+</script>
+<div class="container" style="padding-bottom:100px;">
+    <div class="row">
+        <div class='col-md-10 col-md-offset-1'>   
+            <h1>Felhasználók</h1>
+                <table class='table'>
+                    <tr><th>Felhasználó</th><th>Jelszó hash</th></tr>
+                    <tbody id="user_table"></tbody>
+                </table>
+        </div>
+    </div>
+</div>
+<script>
+    httpGetAsync('../../rest/admin/users/entity/all',function(data) {
+        for (var i = 0; i < data.length; ++i) {
+           var row = data[i];
+           $("#user_table").append("<tr><td>"+row["username"]+"</td><td>"+row["passwd"]+"</td></tr>");
+       }
+    });
+</script>
